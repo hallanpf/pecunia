@@ -1,12 +1,15 @@
 import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
 import { router } from "./routes";
+import swaggerUi from "swagger-ui-express";
+import swaggerOutput from "../src/swagger-output.json";
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
 app.use(router);
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
 app.use((err: Error, request: Request, response: Response, next: NextFunction) => {
   if (err instanceof Error) {
@@ -20,5 +23,5 @@ app.use((err: Error, request: Request, response: Response, next: NextFunction) =
 });
 
 app.listen(port, () => {
-  console.log(`Server running at ${port} port`);
+  console.log(`Server running at ${port} port | documetation at http://localhost:3000/swagger`);
 });

@@ -21,7 +21,7 @@ router.post('/users', new CreateUserController().handle);
 router.get('/users/:id', isAuthenticated, new FindUserController().handle);
 
 // Find All (Authenticated)
-router.get('/users', isAuthenticated, new FindAllUserController().handle);
+router.get('/users', new FindAllUserController().handle);
 
 // Edit (Authenticated)
 router.put('/users/:id', isAuthenticated, new EditUserController().handle);
