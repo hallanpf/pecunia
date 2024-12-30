@@ -5,6 +5,7 @@ import { DeleteTransactionController } from '../../controllers/transaction/Delet
 import { EditTransactionController } from '../../controllers/transaction/EditTransactionController';
 import { FindAllTransactionsController } from '../../controllers/transaction/FindAllTransactionsController';
 import { FindTransactionController } from '../../controllers/transaction/FindTransactionController';
+import { BalanceController } from '../../controllers/transaction/BalanceController';
 
 const privateTransactionRouter = Router();
 
@@ -23,5 +24,8 @@ privateTransactionRouter.put('/update/:id', isAuthenticated, new EditTransaction
 
 // Delete (Authenticated)
 privateTransactionRouter.delete('/delete/:id', isAuthenticated, new DeleteTransactionController().handle);
+
+// Balance (Authenticated)
+privateTransactionRouter.get('/balance', isAuthenticated, new BalanceController().handle);
 
 export { privateTransactionRouter };
