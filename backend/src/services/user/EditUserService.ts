@@ -1,56 +1,25 @@
 import prismaClient from '../../prisma';
 import { hash } from 'bcryptjs';
-import { UserRequest } from '../../interfaces/user/UserRequest';
+import { UserData } from '../../interfaces/user/UserTypes';
 
 class EditUserService {
-  
-  async execute({ id, name, username, email, password, role }: UserRequest) {
-    if (!id) {
-      throw new Error('ID incorrect');
-    }
+  async execute(id: string, data: UserData): Promise<UserData> {
+    const passwordHash = await hash(data.password, 10);
 
-    if (!username) {
-      throw new Error('Username incorrect');
-    }
-
-    if (!email) {
-      throw new Error('Email incorrect');
-    }
-
-    const user = await prismaClient.user.findFirst({
+    const user = await prismaClient.user.update({
       where: {
-        id: id
-      }
-    });
-
-    if (!user) {
-      throw new Error('User does not exists');
-    }
-
-    const userAlreadyExists = await prismaClient.user.findFirst({
-      where: {
-        email: email,
-        username: username
-      }
-    });
-
-
-    const passwordHash = await hash(password, 10);
-
-    const userUpdated = await prismaClient.user.update({
-      where: {
-        id: id
+        id
       },
       data: {
-        name,
-        username,
-        email,
+        name: data.name,
+        username: data.username,
+        email: data.email,
         password: passwordHash,
-        role,
+        role: data.role
       }
     });
 
-    return userUpdated;
+    return user;
   }
 }
 

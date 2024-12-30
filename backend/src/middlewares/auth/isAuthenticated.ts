@@ -19,6 +19,7 @@ export function isAuthenticated(request: Request, response: Response, next: Next
     request.user_id = sub;
 
     return next();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return response.status(401).json({
       message: 'Token is invalid',
