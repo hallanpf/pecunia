@@ -17,6 +17,6 @@ privateUserRouter.get('/', isAuthenticated, new FindAllUserController().handle);
 privateUserRouter.put('/update/:id', isAuthenticated, new EditUserController().handle);
 
 // Delete (Authenticated)
-privateUserRouter.delete('/users/:id', isAuthenticated, new DeleteUserController().handle);
+privateUserRouter.delete('/delete/:id', isAuthenticated, new DeleteUserController().handle);
 
 export { privateUserRouter };
