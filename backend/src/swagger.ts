@@ -8,7 +8,7 @@ const doc = {
     },
     servers: [
         {
-            url: 'http://localhost:3000',
+            url: 'https://back-pecunia.vercel.app/',
             description: ''
         },
     ],

@@ -2,7 +2,11 @@ import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 import { Payload } from '../../interfaces/auth/Payload';
 
-export function isAuthenticated(request: Request, response: Response, next: NextFunction) {
+interface CustomRequest extends Request {
+  user_id?: string;
+}
+
+export function isAuthenticated(request: CustomRequest, response: Response, next: NextFunction) {
   const authToken = request.headers.authorization;
 
   if (!authToken) {
@@ -16,7 +20,7 @@ export function isAuthenticated(request: Request, response: Response, next: Next
   try {
     const { sub } = verify(token, process.env.JWT_SECRET) as Payload;
 
-    request.user_id = sub;
+    request.user_id = sub; // Agora TypeScript reconhece user_id
 
     return next();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

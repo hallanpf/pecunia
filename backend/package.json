@@ -5,7 +5,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
-    "swagger": "ts-node-dev src/swagger.ts"
+    "swagger": "ts-node-dev src/swagger.ts",
+    "build": "tsc",
+    "start": "node src/server.js",
+    "postinstall": "prisma generate"
+
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
